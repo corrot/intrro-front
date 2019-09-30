@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Form, Button } from "react-bootstrap";
+
+import { API_BASE_URL } from "../../constants";
 
 export default class CreateEmployee extends Component {
   constructor(props) {
@@ -17,6 +20,20 @@ export default class CreateEmployee extends Component {
   }
 
   handleSubmit() {
+    const { firstName, lastName, email, address } = this.state;
+
+    const newEmployee = {
+      employee_first_name: firstName,
+      employee_last_name: lastName,
+      employee_email: email,
+      employee_address: address
+    };
+
+    axios
+      .post(`${API_BASE_URL}/employees/add`, newEmployee)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err));
+
     this.setState({
       firstName: "",
       lastName: "",
@@ -34,9 +51,9 @@ export default class CreateEmployee extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "20px" }}>
+      <div>
         <h2>Add new employee</h2>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="exampleForm.ControlInput1">
             <Form.Label>First Name</Form.Label>
             <Form.Control
@@ -73,7 +90,7 @@ export default class CreateEmployee extends Component {
               placeholder="name@example.com"
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onSubmit={this.handleSubmit}>
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>

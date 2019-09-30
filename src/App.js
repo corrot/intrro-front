@@ -28,7 +28,7 @@ function App() {
             </Nav>
           </Container>
         </Navbar>
-        <Container>
+        <Container style={{ paddingTop: "20px" }}>
           <Route path="/" exact component={EmployeesList} />
           <Route path="/create-employee" component={CreateEmployee} />
           <Route path="/delete-employee" component={DeleteEmployee} />
