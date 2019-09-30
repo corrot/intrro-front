@@ -19,7 +19,9 @@ export default class CreateEmployee extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  async handleSubmit(e) {
+    e.preventDefault();
+
     const { firstName, lastName, email, address } = this.state;
 
     const newEmployee = {
@@ -29,24 +31,25 @@ export default class CreateEmployee extends Component {
       employee_address: address
     };
 
-    axios
+    await axios
       .post(`${API_BASE_URL}/employees/add`, newEmployee)
       .then(res => console.log(res.data))
       .catch(err => console.log(err));
 
-    this.setState({
+    await this.setState({
       firstName: "",
       lastName: "",
       address: "",
       email: ""
     });
+
+    this.props.history.push("/");
   }
 
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(e.target.name, e.target.value);
   }
 
   render() {
@@ -55,21 +58,23 @@ export default class CreateEmployee extends Component {
         <h2>Add new employee</h2>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>First Name</Form.Label>
+            <Form.Label>First Name *</Form.Label>
             <Form.Control
               onChange={e => this.handleChange(e)}
               type="text"
               name="firstName"
               placeholder="type..."
+              required
             />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlInput2">
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>Last Name *</Form.Label>
             <Form.Control
               onChange={e => this.handleChange(e)}
               type="text"
               name="lastName"
               placeholder="type..."
+              required
             />
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlInput3">

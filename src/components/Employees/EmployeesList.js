@@ -12,7 +12,7 @@ export default class EmployeesList extends Component {
     };
   }
 
-  componentDidMount() {
+  fetchData() {
     axios
       .get(`${API_BASE_URL}/employees/`)
       .then(response => {
@@ -22,8 +22,13 @@ export default class EmployeesList extends Component {
       .catch(err => console.log("Error: ", err));
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   render() {
     const { employees } = this.state;
+
     return (
       <div>
         <Table striped bordered hover>
@@ -35,13 +40,12 @@ export default class EmployeesList extends Component {
               <th>Address</th>
               <th>Email</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {employees.map((e, i) => {
               return (
-                <tr>
+                <tr key={e._id}>
                   <td>{i + 1}</td>
                   <td>{e.employee_first_name}</td>
                   <td>{e.employee_last_name}</td>
@@ -49,9 +53,6 @@ export default class EmployeesList extends Component {
                   <td>{e.employee_email}</td>
                   <td>
                     <Link to={`/edit-employee/${e._id}`}>Edit</Link>
-                  </td>
-                  <td>
-                    <Link to={`/delete-employee/${e._id}`}>Delete</Link>
                   </td>
                 </tr>
               );
