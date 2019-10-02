@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
+import { getDateTime } from "../../utils";
 import { API_BASE_URL } from "../../constants";
 
 export default class EmployeesList extends Component {
@@ -39,6 +41,7 @@ export default class EmployeesList extends Component {
               <th>Last Name</th>
               <th>Address</th>
               <th>Email</th>
+              <th>Created</th>
               <th></th>
             </tr>
           </thead>
@@ -51,6 +54,7 @@ export default class EmployeesList extends Component {
                   <td>{e.employee_last_name}</td>
                   <td>{e.employee_address}</td>
                   <td>{e.employee_email}</td>
+                  <td>{getDateTime(e.employee_add_date)}</td>
                   <td>
                     <Link to={`/edit-employee/${e._id}`}>Edit</Link>
                   </td>

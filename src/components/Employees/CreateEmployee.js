@@ -28,7 +28,8 @@ export default class CreateEmployee extends Component {
       employee_first_name: firstName,
       employee_last_name: lastName,
       employee_email: email,
-      employee_address: address
+      employee_address: address,
+      employee_add_date: new Date()
     };
 
     await axios
@@ -36,7 +37,7 @@ export default class CreateEmployee extends Component {
       .then(res => console.log(res.data))
       .catch(err => console.log(err));
 
-    await this.setState({
+    this.setState({
       firstName: "",
       lastName: "",
       address: "",

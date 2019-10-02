@@ -52,7 +52,7 @@ export default class EditEmployee extends Component {
     });
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
     const {
@@ -75,7 +75,7 @@ export default class EditEmployee extends Component {
       employee_email
     };
 
-    axios
+    await axios
       .post(`${API_BASE_URL}/employees/update/${id}`, newEmployee)
       .then(response => {
         console.log(response.data);
@@ -92,14 +92,14 @@ export default class EditEmployee extends Component {
     this.setState({ show: false });
   }
 
-  handleDelete() {
+  async handleDelete() {
     const {
       match: {
         params: { id }
       }
     } = this.props;
 
-    axios
+    await axios
       .get(`${API_BASE_URL}/employees/delete/${id}`)
       .then(response => console.log(response.data));
 
@@ -136,29 +136,7 @@ export default class EditEmployee extends Component {
           </Modal.Footer>
         </Modal>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>First Name *</Form.Label>
-            <Form.Control
-              onChange={e => this.handleChange(e)}
-              type="text"
-              name="employee_first_name"
-              placeholder="type..."
-              value={employee_first_name}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="exampleForm.ControlInput2">
-            <Form.Label>Last Name *</Form.Label>
-            <Form.Control
-              onChange={e => this.handleChange(e)}
-              type="text"
-              name="employee_last_name"
-              placeholder="type..."
-              value={employee_last_name}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="exampleForm.ControlInput3">
+          <Form.Group controlId="employee_address">
             <Form.Label>Address</Form.Label>
             <Form.Control
               onChange={e => this.handleChange(e)}
@@ -168,7 +146,7 @@ export default class EditEmployee extends Component {
               value={employee_address}
             />
           </Form.Group>
-          <Form.Group controlId="exampleForm.ControlInput4">
+          <Form.Group controlId="employee_email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               onChange={e => this.handleChange(e)}
