@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
 import CreateEmployee from "./components/Employees/CreateEmployee";
-import DeleteEmployee from "./components/Employees/DeleteEmployee";
 import EditEmployee from "./components/Employees/EditEmployee";
 import EmployeesList from "./components/Employees/EmployeesList";
 import Contact from "./components/Contact";
@@ -41,7 +40,6 @@ function App() {
         <Container style={{ paddingTop: "20px" }}>
           <Route path="/" exact component={EmployeesList} />
           <Route path="/create-employee" component={CreateEmployee} />
-          <Route path="/delete-employee" component={DeleteEmployee} />
           <Route path="/edit-employee/:id" component={EditEmployee} />
           <Route path="/contact" component={Contact} />
           <Route path="/about" component={About} />
